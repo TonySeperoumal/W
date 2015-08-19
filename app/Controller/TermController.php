@@ -27,10 +27,30 @@ class TermController extends Controller
 		$this->redirectToRoute('show_all_terms');
 	}
 
-	public function modidfy($id)
+	public function edit($id)
 	{
 		$termManager = new \Manager\TermManager();
-		$termManager -> update($id);
+
+		if (!empty($_POST))
+		{
+
+			$name = trim($_POST['name']);
+
+			if (strlen($_POST['name']) > 1){      //valider... un minimum
+
+				$data = [
+					'name' => $name,
+					'modifiedDate' => date("Y-m-d H:i:s"),
+				];
+
+				$termManager->update($data, $id);//sauvegarder les modifications avc la methode update() du TermManager
+
+				$this->redirectToRoute('show_all_terms');
+			}
+		}
+		$term = $termManager -> find($id);
+
+		$this->show('term/edit_term', ['term' => $term]);
 	}
 
 }
