@@ -11,9 +11,11 @@
 		</tr>
 		<?php foreach ($terms as $term): ?>
 		<tr>
-			<td><?php $this->e($term['id']) ?></td>		
-			<td><?php $this->e($term['name']) ?></td>
-			<td><?php $this->e($term['modifiedDate']) ?></td>
+			<td><?= $this->e($term['id']); ?></td>		
+			<td><?= $this->e($term['name']); ?></td>
+			<td><?= $this->e($term['modifiedDate']); ?></td>
+			<td><a class="btn" href="<?= $this->url('terms_delete', ['id' => $term['id']]); ?>"><i class="fa fa-trash"></i>Supprimer</a></td>
+			<td><a href="<?= $this->url('terms_update', ['id' => $term['id']]); ?>"><i class="fa fa-pencil"></i>Modifier</a></td>
 		</tr>
 
 		<?php endforeach; ?>

@@ -6,6 +6,8 @@
 
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/reset.css') ?>">
 	<link rel="stylesheet" href="<?= $this->assetUrl('css/style.css') ?>">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/javascript" href="../js/admin.js">
 </head>
 <body>
 	<div class="container">
