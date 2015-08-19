@@ -57,13 +57,13 @@ class TermController extends Controller
 	{
 		$termManager = new \Manager\TermManager();
 		$wotd = $termManager->getCurrentWordOfTheDay();		
+		debug($wotd);
 
 		$termManager->update(['is_wotd' => 0], $wotd['id']);
 		$termManager->update(['is_wotd' => 1], $id);
 
 		$this->redirectToRoute('show_all_terms');
 
-		debug($wotd);
 
 	}
 
