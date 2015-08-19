@@ -5,14 +5,15 @@
 	<table class="table-row">
 		<tr>
 			<th>Id</th>
-			<th>Name</th>
+			<th>Terme</th>
 			<th>Date de modification</th>
+			<th>Actions</th>
 		</tr>
 		<?php foreach ($terms as $term): ?>
 		<tr>
-			<td><?php echo $term['id'] ?></td>		
-			<td><?php echo $term['name'] ?></td>
-			<td><?php echo $term['modifiedDate'] ?></td>
+			<td><?php $this->e($term['id']) ?></td>		
+			<td><?php $this->e($term['name']) ?></td>
+			<td><?php $this->e($term['modifiedDate']) ?></td>
 		</tr>
 
 		<?php endforeach; ?>
