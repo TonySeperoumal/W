@@ -12,7 +12,9 @@
 <body>
 	<div class="container">
 		<header>
-			<h1>W :: <?= $this->e($title) ?></h1>
+			<h1>Wikébec :: <?= $this->e($title) ?></h1>
+
+			<a href="<?= $this->url('change_wotd') ?>" title="Modifier le mot du jour actuel">Nouveau mot</a>
 		</header>
 
 		<section>

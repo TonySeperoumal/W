@@ -53,4 +53,19 @@ class TermController extends Controller
 		$this->show('term/edit_term', ['term' => $term]);
 	}
 
+	public function changeWotd($id)
+	{
+		$termManager = new \Manager\TermManager();
+		$wotd = $termManager->getCurrentWordOfTheDay();		
+
+		$termManager->update(['is_wotd' => 0], $wotd['id']);
+		$termManager->update(['is_wotd' => 1], $id);
+
+		$this->redirectToRoute('show_all_terms');
+
+		debug($wotd);
+
+	}
+
+	
 }
