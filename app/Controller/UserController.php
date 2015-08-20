@@ -72,20 +72,44 @@
 					//inserer en base
 					$userManager->insert($newAdmin);
 				}
-
-
-
-
-
 			}
 
 			$dataToPassToTheView = ["error" => $error, "username" => $username, "email" => $email];
 			$this->show('users/register_administrator', $dataToPassToTheView);
-
-			
-
 		}
 
+		public function login()
+		{
+			$authentificationManager = new \W\Security\AuthentificationManager;
+			$username = "";
+			$password = "";
+			$error = "";
+
+			if (!empty($_POST))
+			{
+				foreach ($_POST as $k -> $v)
+				{
+					$$k = trim(strip_tags($v));
+				}
+
+				if (empty($username))
+				{
+					$error = "Indiquez votre identifiant !";
+				}
+
+				if (empty($password))
+				{
+					$error = "Indiquez votre mot de passe !";
+				}
+
+				if (empty($error))
+				{
+
+					$authentificationManager -> isValidLoginInfo($user);
+				}
 
 
+			}
+			
+		}
 	}
