@@ -5,12 +5,23 @@
 
 	use \W\Controller\Controller;
 	use \Manager\UserManager;
+	use \W\Security\AuthentificationManager;
+	
 	
 
 	class UserController extends Controller
 	{
+		public function home()
+		{
+			$userManager = new UserManager;
+
+			$this->show('home');
+		}
+
 		public function register()
 		{
+			$this->allowTo('admin');
+
 			$userManager = new UserManager;
 
 			$error = "";
@@ -42,10 +53,20 @@
 					$error = 'Identifiant trop court !';
 				}
 
+				if ($userManager->usernameExists($username))
+				{
+					$error = "Pseudo déjà utilisé !";
+				}
+
 				
 				if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 				{
 					$error = "Email non valide !";
+				}
+
+				if ($userManager-> emailExists($email))
+				{
+					$error = "Email déjà utilisé !";
 				}			
 				
 				//mots de passe correspondent
@@ -80,36 +101,48 @@
 
 		public function login()
 		{
-			$authentificationManager = new \W\Security\AuthentificationManager;
+			$authentificationManager = new AuthentificationManager();
+
 			$username = "";
 			$password = "";
 			$error = "";
+			$data = [];
 
 			if (!empty($_POST))
 			{
-				foreach ($_POST as $k -> $v)
-				{
-					$$k = trim(strip_tags($v));
+				$username = $_POST['username'];
+				$password = $_POST['password'];
+
+				$result = $authentificationManager->isValidLoginInfo($username, $password);
+
+				if ($result > 0){
+					$userId = $result;
+
+					//recupere l'utilisateur
+					$userManager = new \Manager\UserManager();
+					$user = $userManager->find($userId);
+
+					//connecte l'user
+					$authentificationManager->logUserIn($user);
+
+					$this->redirectToRoute('show_all_terms');
 				}
-
-				if (empty($username))
+				else 
 				{
-					$error = "Indiquez votre identifiant !";
+					$error = "Mauvais identifiant !";
 				}
-
-				if (empty($password))
-				{
-					$error = "Indiquez votre mot de passe !";
-				}
-
-				if (empty($error))
-				{
-
-					$authentificationManager -> isValidLoginInfo($user);
-				}
-
-
 			}
-			
+
+			$data['error'] = $error;
+			$data['username'] = $username;			
+
+			$this->show('users/login', $data);			
+		}
+
+		public function logout()
+		{
+			$authentificationManager = new AuthentificationManager();
+			$authentificationManager->logUserOut();
+			$this->redirectToRoute('login');
 		}
 	}

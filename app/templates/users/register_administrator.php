@@ -31,7 +31,7 @@
 		</div>
 		<br />
 		<button >Valider</button>
-		<div><? echo $error ?></div>
+		<div><?php echo $error ?></div>
 
 	</form>
 

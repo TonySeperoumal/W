@@ -2,7 +2,7 @@
 
 	namespace Manager;
 
-	class userManager extends \W\Manager\UserManager
+	class UserManager extends \W\Manager\UserManager
 	{
 		
 	}

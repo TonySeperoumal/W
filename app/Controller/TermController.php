@@ -12,6 +12,8 @@ class TermController extends Controller
 	 */
 	public function showAll()
 	{
+		$this->allowTo('admin');
+
 		$termManager = new \Manager\TermManager();
 		$terms = $termManager->findAll("modifiedDate", "DESC");
 
@@ -29,6 +31,9 @@ class TermController extends Controller
 
 	public function edit($id)
 	{
+		$this->allowTo('admin');
+		$user = $this->getUser();
+
 		$termManager = new \Manager\TermManager();
 
 		if (!empty($_POST))
